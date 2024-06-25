@@ -1,11 +1,9 @@
 import { useEffect, useState } from 'react'
 import { useTheme } from 'nextra-theme-docs';
-import styles from './Grid.module.css';
+import styles from './Packages.module.css';
 
 const Packages = () => {
-  const theme = useTheme().theme;
-  const isDark = theme!== "light";
-  const [CurrentSearchQuery, setCurrentSearchQuery] = useState('');
+  const [CurrentSearchQuery, setCurrentSearchQuery] = useState('*');
   const [currentSearch, setCurrentSearch] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
 
@@ -21,10 +19,10 @@ const Packages = () => {
       }
       const items = data.items.map((item, i) => {
         return (
-          <div className={isDark ? styles.gridItem : styles.gridItemLight} key={i}>
+          <a className={styles.gridItem} key={i} href={item.repo} target="_blank">
             <h1 className={styles.pkgTitle}>{item.name}</h1>
-            <h4 className={styles.pkgVersion}>{item.latest}</h4>
-          </div>
+            <h4 className={styles.pkgVersion}>{item.version}</h4>
+          </a>
         )
       });
       setCurrentSearch(items);
@@ -41,19 +39,20 @@ const Packages = () => {
   };
 
   useEffect(() => {
-    const ac = setTimeout(() => {handleSearchChange(CurrentSearchQuery)}, 600);
+    const ac = setTimeout(() => {handleSearchChange(CurrentSearchQuery!=='' ? CurrentSearchQuery : '*')}, 600);
     return () => {
       clearTimeout(ac);
     }
   }, [CurrentSearchQuery]);
 
   useEffect(() => {
-    const ac = setTimeout(() => {handleSearchChange(CurrentSearchQuery)}, 100);
+    const ac = setTimeout(() => {
+      handleSearchChange(CurrentSearchQuery);
+    }, 300);
     return () => {
       clearTimeout(ac);
     }
   }, [currentPage]);
-  
 
   return (
     <>
@@ -64,8 +63,19 @@ const Packages = () => {
         </div>
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', marginTop: "20px" }}>
-        <button className={isDark ? styles.pageBtn : styles.pageBtnLight} onClick={handlePrevClick} style={{marginRight: "20px"}}>{"<"}</button>
-        <button className={isDark ? styles.pageBtn : styles.pageBtnLight} onClick={handleNextClick}>{">"}</button>
+        <button 
+          className={styles.pageBtn} 
+          onClick={handlePrevClick} 
+          style={{marginRight: "20px"}}
+        >
+          {"<"}
+        </button>
+        <button 
+          className={styles.pageBtn} 
+          onClick={handleNextClick}
+        >
+          {">"}
+        </button>
       </div>
     </>
   );
