@@ -48,20 +48,20 @@ jobs:
       - name: Build
         run: npm run build # Assuming you have a build script defined in your package.json
         
-      - name: Upload Artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: nextjs-build
-          path: .next/
+      # - name: Upload Artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: nextjs-build
+      #     path: .next/
           
-      - name: Archive artifact
-        run: tar czf nextjs-build.tar.gz.next/
+      # - name: Archive artifact
+      #   run: tar czf nextjs-build.tar.gz.next/
 
-      - name: Upload archived artifact
-        uses: actions/upload-artifact@v3
-        with:
-          name: nextjs-archive
-          path: nextjs-build.tar.gz
+      # - name: Upload archived artifact
+      #   uses: actions/upload-artifact@v3
+      #   with:
+      #     name: nextjs-archive
+      #     path: nextjs-build.tar.gz
 
   deploy:
     needs: build
