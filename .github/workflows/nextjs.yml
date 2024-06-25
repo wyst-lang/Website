@@ -67,23 +67,8 @@ jobs:
     needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Download Artifacts
-        uses: actions/download-artifact@v3
-        with:
-          name: nextjs-build
-          path: .
-
-      - name: Extract Artifact
-        run: tar xzf nextjs-build.tar.gz
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./ # Adjust this to the directory containing your built site
-          publish_branch: gh-pages # Or 'master' if you prefer to serve from the master branch
-          allow_empty_commit: true
-          keep_files: false
-          force_orphan: true
-          enable_jekyll: false
-          disable_nojekyll: true
+          publish_dir: .next
