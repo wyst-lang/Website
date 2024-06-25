@@ -26,14 +26,14 @@ jobs:
         with:
           node-version: "22"
           
-      - name: Install pnpm
-        run: npm install -g pnpm
+      # - name: Install pnpm
+        # run: npm install -g pnpm
         
       - name: Install Dependencies
-        run: pnpm install
+        run: npm install
         
       - name: Build with Next.js
-        run: pnpm run build
+        run: npm run build
         
       - name: Cache Dependencies
         uses: actions/cache@v4
