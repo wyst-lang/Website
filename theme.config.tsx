@@ -15,7 +15,7 @@ const config: DocsThemeConfig = {
     return {
       titleTemplate: '%s - Wyst'
     }
-  }
+  },
 }
 
 export default config
